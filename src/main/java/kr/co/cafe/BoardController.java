@@ -19,8 +19,9 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board.do", method = RequestMethod.GET)
 	public String home(Model model) {
+		System.out.println("컨트롤러 진입");
 		service.boardList();
-		return "boardList";
+		return "index.boardList";
 	}
 	
 }

@@ -13,6 +13,7 @@ public class BoardService {
 	public void boardList() {
 		BoardDao dao = sqlsession.getMapper(BoardDao.class);
 		BoardVo vo = dao.boardList();
+		System.out.println("vo : " + vo);
 	}
 
 }
