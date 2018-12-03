@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.cafe.BoardDao">
-
 	<select id="boardList" resultType="kr.co.cafe.BoardVo">
 		select * from board
+		order by b_grp desc, b_seq asc
 	</select>
-
+	<select id="boardCate" resultType="kr.co.cafe.Board_cateVo">
+		select bcate_num, bcate_title from board_cate 
+	</select>
+	<insert id="boardWrite" useGeneratedKeys="true" parameterType="kr.co.cafe.BoardVo">
+		insert into board(bcate_num, b_title, b_content, b_date, b_hit) 
+		values(#{bcate_num}, #{b_title}, #{b_content}, now(), 0)
+		<selectKey keyProperty="b_num" order="AFTER" resultType="int">
+			select max(b_num) as b_num from board
+		</selectKey>
+	</insert>	
+	<update id="boardUpdateGrp_new" parameterType="int">
+		update board
+		set 
+		b_grp = #{param1},
+		b_dept = 0,
+		b_seq = 0
+		where b_num = #{param1}
+	</update>
+	<select id="boardDetail" parameterType="int" resultType="kr.co.cafe.BoardVo">
+		select * from board
+		where b_num = #{param1} 
+	</select>
+	<select id="aBoardCate" parameterType="int" resultType="kr.co.cafe.Board_cateVo">
+		select c.bcate_num, c.bcate_title
+		from board b join board_cate c
+		on b.bcate_num = c.bcate_num
+		where b.b_num = #{param1}
+	</select>
+	<select id="selectMinSeq" parameterType="kr.co.cafe.BoardVo" resultType="int">
+		select ifnull(min(b_seq), 0) from board
+		where b_grp = #{b_grp}
+		and b_seq &gt; #{b_seq}
+		and b_dept &lt;= #{b_dept}
+	</select>
+	<select id="maxSeq" resultType="int" parameterType="int">
+		select ifnull(max(b_seq), 0) + 1 from board
+		where b_grp = #{param1}
+	</select>
+	<update id="seqZero" parameterType="kr.co.cafe.BoardVo">
+		update board
+		set
+		b_grp = #{b_grp},
+		b_seq = #{b_seq},
+		b_dept = #{b_dept} + 1
+		where b_num = #{b_num}
+	</update>
+	<update id="seqNotZeroOrigin" parameterType="kr.co.cafe.BoardVo">
+		update board
+		set
+		b_seq = b_seq + 1
+		where b_grp = #{b_grp} 
+		and b_seq &gt;= #{b_seq}
+		and b_num != #{b_num}
+	</update>
+	<update id="seqNotZeroNew" parameterType="kr.co.cafe.BoardVo">
+		update board
+		set
+		b_grp = #{b_grp},
+		b_dept = #{b_dept} + 1,
+		b_seq = #{b_seq}
+		where b_num = #{b_num}
+	</update>
 </mapper>

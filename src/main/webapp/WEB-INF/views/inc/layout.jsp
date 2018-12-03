@@ -25,23 +25,16 @@
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+	<!-- Summernote editer -->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-</head>
-
-<body>
-    <div id="wrapper">
-		<tiles:insertAttribute name="header" />
-        <tiles:insertAttribute name="content" />
-        <tiles:insertAttribute name="footer" />
-    </div>
-    <!-- /#wrapper -->
-
+ 
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
@@ -53,7 +46,54 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.js"></script>
+    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+</head>
 
+<body>
+    <div id="wrapper">
+		<tiles:insertAttribute name="header" />
+        <tiles:insertAttribute name="content" />
+        <tiles:insertAttribute name="footer" />
+    </div>
+    <!-- /#wrapper -->
+
+    
+
+	<script>
+		$(document).ready(function(){
+			$('#btn_write').click(function(){
+				location.href = "boardWrite.do";
+			});
+			
+			// boardWrite.jsp 
+			$('#b_content').summernote({
+				placeholder: '게시글을 작성해주세요',
+		        tabsize: 2,
+		        height: 400
+			});
+			
+			$.ajax({ 
+				url : "boardCate.do",
+				type : "get",
+				success : function(data){
+					html = ""; 
+					$.each(data, function(index, entry){
+						html += "<option value='"+data[index].bcate_num+"'>"+data[index].bcate_title+"</option>";
+					});
+					$('#boardCate_option').after(html);
+				}
+			});
+			
+			// boardReplay.jsp 
+			$('#btn_reply').click(function(){
+				location.href = "boardReply.do?b_num=${vo.b_num}";
+			});
+			
+			
+			
+		});
+	</script>
 </body>
 
 </html>

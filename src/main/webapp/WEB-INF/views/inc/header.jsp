@@ -235,7 +235,7 @@
                                     <div class="sidebar-userInfoDiv sidebar-userInfoDivSecond">김현이<br>가입 2018.07.31</div>
                                 </div>
                                 <div class="sidebar-userInfoBtn">
-                                    <button class="btn btn-default" type"button">카페 글쓰기</button>
+                                    <button class="btn btn-default" type"button" id="btn_write">카페 글쓰기</button>
                                     <button class="btn btn-default" type"button">카페 채팅</button>
                                 </div>
                             </div>
