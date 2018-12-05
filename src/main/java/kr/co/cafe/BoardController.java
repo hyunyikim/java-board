@@ -20,6 +20,9 @@ public class BoardController {
 	 * 
 	 * 글 보기 boardDetail.do
 	 * 답글 달기 boardReply.do
+	 * 
+	 * 게시판 카테고리 추가 addCate.do
+	 * 조회수 증가 addHit.do
 	*/
 	
 	@Autowired
@@ -68,6 +71,18 @@ public class BoardController {
 	public String boardReply(Model model, BoardVo vo) {
 		service.boardReplyWrite(vo);
 		return "redirect:/board.do";	//	 boardDetail.do? 뒤에 vo.getB_num 붙이기 
+	}
+	
+	@RequestMapping(value = "/addCate.do", method = RequestMethod.POST)
+	public String addCate(Board_cateVo cateVo) {
+		service.addCate(cateVo);
+		return "redirect:/board.do";	//	 boardDetail.do? 뒤에 vo.getB_num 붙이기 
+	}
+	
+	@RequestMapping(value = "/addHit.do", method = RequestMethod.GET)
+	public @ResponseBody String addHit(int b_num) {
+		String hitResult = service.addHit(b_num);
+		return hitResult;
 	}
 	
 	

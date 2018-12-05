@@ -14,8 +14,11 @@ public interface BoardDao {
 	public int selectMinSeq(BoardVo originVo);
 	public int seqZero(BoardVo originVo);
 	public int maxSeq(int b_grp);
-	
 	public int seqNotZeroOrigin(BoardVo originVo);
 	public int seqNotZeroNew(BoardVo originVo);
+	
+	public int addCate(Board_cateVo cateVo);
+	public int addHit(int b_num);
+	
 	
 }

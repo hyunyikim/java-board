@@ -82,12 +82,30 @@
 						html += "<option value='"+data[index].bcate_num+"'>"+data[index].bcate_title+"</option>";
 					});
 					$('#boardCate_option').after(html);
+					
+					html2 = "";
+					$.each(data, function(index, entry){
+						html2 += "<li><a href='board.do?bcate_num="+data[index].bcate_num+"'>"+data[index].bcate_title+"</a></li>";
+					});
+					$('#li_cateAll').after(html2);
 				}
 			});
 			
 			// boardReplay.jsp 
 			$('#btn_reply').click(function(){
 				location.href = "boardReply.do?b_num=${vo.b_num}";
+			});
+			
+			// 조회수 증가 
+			$('.a_bTitle').click(function(){
+				var b_num = $(this).attr("id");
+				$.ajax({ 
+					url : "addHit.do?b_num="+b_num,
+					type : "get",
+					success : function(data){
+						console.log(data);
+					}
+				});
 			});
 			
 			

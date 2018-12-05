@@ -25,7 +25,7 @@
                           <tr>
                             <td id="td_num">${vo.b_num }</td>
                             <c:if test="${vo.b_dept == 0}"> 
-                            	<td id="td_title"><a href="boardDetail.do?b_num=${vo.b_num }">${vo.b_title }</a></td>	
+                            	<td id="td_title"><a href="boardDetail.do?b_num=${vo.b_num }"><span id="${vo.b_num }" class="a_bTitle">${vo.b_title }</span></a></td>	
                             </c:if>
                             <c:if test="${vo.b_dept != 0}">
                             	<td id="td_title">
@@ -33,7 +33,7 @@
                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             		</c:forEach>
 	                            	<img src="${pageContext.request.contextPath}/resources/img/icon_reply.png" alt="iconReply" title="iconReply" class="icon_reply">
-	                            	<a href="boardDetail.do?b_num=${vo.b_num }">${vo.b_title }</a>
+	                            	<a href="boardDetail.do?b_num=${vo.b_num }"><span class="a_bTitle">${vo.b_title }</span></a>
 	                            </td>	
                             </c:if>
                             <td id="td_writer">${vo.b_writer }</td>
@@ -43,6 +43,18 @@
                         </c:forEach>
                         </tbody>
                       </table>
+                      <div class="col-lg-10" id="box_btnSearch">
+                      		<select class="form-control" id="boardCate_select" name="bcate_num">
+								<option value="b_all">전체</option>
+								<option value="b_title">글제목</option>
+								<option value="b_writer">글쓴이</option>
+							</select>
+                      		<input type="text" class="form-control" placeholder="Search..." id="input_search">
+                      		<button class="btn btn-default" type="button" id="btn_search">검색 </button>
+                       </div>
+                       <div class="col-lg-2" id="box_btnWrite">
+                       		<button class="btn btn-default" type="button" id="btn_write">새글 작성</button>
+                      </div>
                 </div>
             </div>
         </div>

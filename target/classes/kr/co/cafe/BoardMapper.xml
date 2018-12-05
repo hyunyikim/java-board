@@ -67,4 +67,13 @@
 		b_seq = #{b_seq}
 		where b_num = #{b_num}
 	</update>
+	<insert id="addCate" parameterType="kr.co.cafe.Board_cateVo">
+		insert into board_cate (bcate_title)
+		values (#{bcate_title})
+	</insert>
+	<update id="addHit" parameterType="int">
+		update board
+		set b_hit = b_hit + 1
+		where b_num = #{param1}
+	</update>
 </mapper>

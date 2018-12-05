@@ -19,6 +19,12 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-lg-2 div_middle"><label>글쓴이</label></div>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="b_writer" name="b_writer">
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-lg-2 div_middle"><label>글 제목</label></div>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="b_title" name="b_title">

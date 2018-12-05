@@ -587,6 +587,7 @@ footer div {
 	margin: 15px;
 }
 
+
 /* boardDetail */
 .boardTable {
 	border-collapse: collapse;
@@ -626,4 +627,23 @@ footer div {
 .icon_reply {
 	width: 10px;
     margin-right: 5px;
+}
+
+#input_search {
+	display: inline-block;
+	width: 40%;
+}
+
+#box_btnSearch {
+	text-align: center;
+}
+
+#box_btnWrite {
+	text-align: right;
+}
+
+#input_bcateTitle {
+	width: 80%;
+    margin-left: 5%;
+    display: inline-block;
 }

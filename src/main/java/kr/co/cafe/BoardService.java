@@ -58,7 +58,23 @@ public class BoardService {
 			int resultOrign = dao.seqNotZeroOrigin(originVo);
 			int resultNew = dao.seqNotZeroNew(originVo);
 		}
-		
+	}
+	
+	public void addCate(Board_cateVo cateVo) {
+		BoardDao dao = sqlsession.getMapper(BoardDao.class);
+		int result = dao.addCate(cateVo);
+	}
+	
+	public String addHit(int b_num) {
+		BoardDao dao = sqlsession.getMapper(BoardDao.class);
+		int result = dao.addHit(b_num);
+		String hitResult = "";
+		if(result == 1) {
+			hitResult = "addHitSuccess";
+		} else if (result == 0) {
+			hitResult = "addHitFail";
+		}
+		return hitResult;
 	}
 	
 }
