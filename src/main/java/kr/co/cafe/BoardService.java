@@ -87,7 +87,7 @@ public class BoardService {
 		return hitResult;
 	}
 	
-	public String commentWrite(CommentVo comVo) {
+	public CommentVo commentWrite(CommentVo comVo) {
 		BoardDao dao = sqlsession.getMapper(BoardDao.class);
 		int result = dao.commentWrite(comVo);
 		String hitResult = "";
@@ -96,13 +96,15 @@ public class BoardService {
 		} else if (result == 0) {
 			hitResult = "commentWriteFail";
 		}
-		return hitResult;
+		return dao.commentDetail(comVo.getC_num());
 	}
 	
 	public List<CommentVo> commentList(int b_num) {
 		BoardDao dao = sqlsession.getMapper(BoardDao.class);
 		return dao.commentList(b_num);
 	}
+	
+	
 	
 	
 	

@@ -121,8 +121,8 @@
 					},
 					type : "post",
 					success : function(data){
-						/* <div class="col-lg-12" id="div_comment">너무 좋은 내용 감사합니다 :)<hr></div> */
-						console.log(data);
+						var html = "<div class='col-lg-12 div_comment'>"+data.c_content+"<hr></div>";
+						$('#span_newComment').after(html); 
 					}
 				}); 
 			});

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
@@ -18,7 +18,11 @@
 				</table>
 			</div>
 			<div class="col-lg-12"><hr></div>
-			<div class="col-lg-12" id="div_comment">너무 좋은 내용 감사합니다 :)<hr></div>
+			<!-- <div class="col-lg-12" id="div_comment">너무 좋은 내용 감사합니다 :)<hr></div> -->
+			<span id="span_newComment"></span>
+			<c:forEach var="comVo" items="${comVo}">
+				<div class="col-lg-12 div_comment">${comVo.c_content }<hr></div>
+			</c:forEach>
 			<div class="col-lg-12">
 				<input type="hidden" name="b_num" value="${vo.b_num}" id="b_num" >
 				<textarea class="form-control" name="c_content" id="ta_boardDetail"></textarea>

@@ -24,6 +24,7 @@ public interface BoardDao {
 	public int addCate(Board_cateVo cateVo);
 	public int addHit(int b_num);
 	public int commentWrite(CommentVo comVo);
+	public CommentVo commentDetail(int c_num);
 	public List<CommentVo> commentList(int b_num);
 	
 	public int listCount();

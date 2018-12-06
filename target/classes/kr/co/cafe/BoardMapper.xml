@@ -79,12 +79,19 @@
 	</update>
 	<insert id="commentWrite" parameterType="kr.co.cafe.vo.CommentVo">
 		insert into comment (b_num, c_content)
-		values (#{b_num}, #{c_content});
+		values (#{b_num}, #{c_content})
+		<selectKey keyProperty="c_num" order="AFTER" resultType="int">
+			select max(c_num) as c_num from comment
+		</selectKey>
 	</insert>
 	<select id="commentList" resultType="kr.co.cafe.vo.CommentVo" parameterType="int">
 		select * from comment
 		where b_num = #{param1}
 		order by c_num desc
+	</select>
+	<select id="commentDetail" resultType="kr.co.cafe.vo.CommentVo" parameterType="int">
+		select * from comment
+		where c_num = #{param1}
 	</select>
 	<select id="listCount" resultType="int">
 		select count(*) from board

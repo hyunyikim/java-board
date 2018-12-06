@@ -36,8 +36,6 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board.do", method = RequestMethod.GET)
 	public String boardList(Model model, @RequestParam(defaultValue="1") int curPage, BoardVo boardVo) {
-		System.out.println("curPage : " + curPage);
-		
 		int listCount = service.listCount();
 		
 		PagingVo pageVo = new PagingVo(curPage, listCount);
@@ -71,9 +69,13 @@ public class BoardController {
 	@RequestMapping(value = "/boardDetail.do", method = RequestMethod.GET)
 	public String boardDetail(Model model, int b_num) {
 		BoardVo vo = service.boardDetail(b_num);
-		Board_cateVo cateVo = service.aBoardCate(b_num);  
+		Board_cateVo cateVo = service.aBoardCate(b_num);
+		List<CommentVo> comVo = service.commentList(b_num);
+		
 		model.addAttribute("vo", vo);
 		model.addAttribute("cateVo", cateVo);
+		model.addAttribute("comVo", comVo);
+		
 		return "index.boardDetail";
 	}
 	
@@ -102,9 +104,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/commentWrite.do", method = RequestMethod.POST)
-	public @ResponseBody List<CommentVo> commentWrite(CommentVo comVo) {
-		service.commentWrite(comVo);
-		return service.commentList(comVo.getB_num());
+	public @ResponseBody CommentVo commentWrite(CommentVo comVo) {
+		return service.commentWrite(comVo);
 	}
 	
 	

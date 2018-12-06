@@ -33,7 +33,7 @@
                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             		</c:forEach>
 	                            	<img src="${pageContext.request.contextPath}/resources/img/icon_reply.png" alt="iconReply" title="iconReply" class="icon_reply">
-	                            	<a href="boardDetail.do?b_num=${vo.b_num }"><span class="a_bTitle">${vo.b_title }</span></a>
+	                            	<a href="boardDetail.do?b_num=${vo.b_num }"><span id="${vo.b_num }" class="a_bTitle">${vo.b_title }</span></a>
 	                            </td>	
                             </c:if>
                             <td id="td_writer">${vo.b_writer }</td>
