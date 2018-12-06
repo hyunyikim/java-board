@@ -2,8 +2,12 @@ package kr.co.cafe;
 
 import java.util.List;
 
+import kr.co.cafe.vo.BoardVo;
+import kr.co.cafe.vo.Board_cateVo;
+import kr.co.cafe.vo.CommentVo;
+
 public interface BoardDao {
-	public List<BoardVo> boardList();
+	public List<BoardVo> boardList(BoardVo vo);
 	public List<Board_cateVo> boardCate();
 	public int boardWrite(BoardVo vo);
 	public int boardUpdateGrp_new(int b_num);
@@ -19,6 +23,8 @@ public interface BoardDao {
 	
 	public int addCate(Board_cateVo cateVo);
 	public int addHit(int b_num);
+	public int commentWrite(CommentVo comVo);
+	public List<CommentVo> commentList(int b_num);
 	
-	
+	public int listCount();
 }

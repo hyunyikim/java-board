@@ -7,7 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.cafe.vo.BoardVo;
+import kr.co.cafe.vo.Board_cateVo;
+import kr.co.cafe.vo.CommentVo;
+import kr.co.cafe.vo.PagingVo;
 
 @Controller
 public class BoardController {
@@ -29,9 +35,20 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping(value = "/board.do", method = RequestMethod.GET)
-	public String home(Model model) {
-		List<BoardVo> voList = service.boardList();
-		model.addAttribute("voList", voList);
+	public String boardList(Model model, @RequestParam(defaultValue="1") int curPage, BoardVo boardVo) {
+		System.out.println("curPage : " + curPage);
+		
+		int listCount = service.listCount();
+		
+		PagingVo pageVo = new PagingVo(curPage, listCount);
+		
+		boardVo.setStartIndex(pageVo.getStartIndex());
+		boardVo.setPageSize(pageVo.getPageSize());
+		
+		List<BoardVo> boardList = service.boardList(curPage, boardVo);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pageVo", pageVo);
+		
 		return "index.boardList";
 	}
 	
@@ -81,8 +98,13 @@ public class BoardController {
 	
 	@RequestMapping(value = "/addHit.do", method = RequestMethod.GET)
 	public @ResponseBody String addHit(int b_num) {
-		String hitResult = service.addHit(b_num);
-		return hitResult;
+		return service.addHit(b_num);
+	}
+	
+	@RequestMapping(value = "/commentWrite.do", method = RequestMethod.POST)
+	public @ResponseBody List<CommentVo> commentWrite(CommentVo comVo) {
+		service.commentWrite(comVo);
+		return service.commentList(comVo.getB_num());
 	}
 	
 	

@@ -1,4 +1,4 @@
-package kr.co.cafe;
+package kr.co.cafe.vo;
 
 public class Board_cateVo {
 	private int bcate_num; 

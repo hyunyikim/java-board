@@ -1,4 +1,4 @@
-package kr.co.cafe;
+package kr.co.cafe.vo;
 
 import java.sql.Date;
 
@@ -14,6 +14,9 @@ public class BoardVo {
 	private int b_grp;
 	private int b_dept;
 	private int b_seq;
+	
+	private int startIndex;
+	private int pageSize;
 	
 	public int getB_num() {
 		return b_num;
@@ -81,6 +84,20 @@ public class BoardVo {
 	public void setB_seq(int b_seq) {
 		this.b_seq = b_seq;
 	}
+	public int getStartIndex() {
+		return startIndex;
+	}
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	
+	
 	
 	
 }

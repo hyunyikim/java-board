@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.cafe.BoardDao">
-	<select id="boardList" resultType="kr.co.cafe.BoardVo">
+	<select id="boardList" parameterType="kr.co.cafe.vo.BoardVo" resultType="kr.co.cafe.vo.BoardVo">
 		select * from board
 		order by b_grp desc, b_seq asc
+		limit #{startIndex}, #{pageSize}
 	</select>
-	<select id="boardCate" resultType="kr.co.cafe.Board_cateVo">
+	<select id="boardCate" resultType="kr.co.cafe.vo.Board_cateVo">
 		select bcate_num, bcate_title from board_cate 
 	</select>
-	<insert id="boardWrite" useGeneratedKeys="true" parameterType="kr.co.cafe.BoardVo">
+	<insert id="boardWrite" useGeneratedKeys="true" parameterType="kr.co.cafe.vo.BoardVo">
 		insert into board(bcate_num, b_title, b_content, b_date, b_hit) 
 		values(#{bcate_num}, #{b_title}, #{b_content}, now(), 0)
 		<selectKey keyProperty="b_num" order="AFTER" resultType="int">
@@ -23,17 +24,17 @@
 		b_seq = 0
 		where b_num = #{param1}
 	</update>
-	<select id="boardDetail" parameterType="int" resultType="kr.co.cafe.BoardVo">
+	<select id="boardDetail" parameterType="int" resultType="kr.co.cafe.vo.BoardVo">
 		select * from board
 		where b_num = #{param1} 
 	</select>
-	<select id="aBoardCate" parameterType="int" resultType="kr.co.cafe.Board_cateVo">
+	<select id="aBoardCate" parameterType="int" resultType="kr.co.cafe.vo.Board_cateVo">
 		select c.bcate_num, c.bcate_title
 		from board b join board_cate c
 		on b.bcate_num = c.bcate_num
 		where b.b_num = #{param1}
 	</select>
-	<select id="selectMinSeq" parameterType="kr.co.cafe.BoardVo" resultType="int">
+	<select id="selectMinSeq" parameterType="kr.co.cafe.vo.BoardVo" resultType="int">
 		select ifnull(min(b_seq), 0) from board
 		where b_grp = #{b_grp}
 		and b_seq &gt; #{b_seq}
@@ -43,7 +44,7 @@
 		select ifnull(max(b_seq), 0) + 1 from board
 		where b_grp = #{param1}
 	</select>
-	<update id="seqZero" parameterType="kr.co.cafe.BoardVo">
+	<update id="seqZero" parameterType="kr.co.cafe.vo.BoardVo">
 		update board
 		set
 		b_grp = #{b_grp},
@@ -51,7 +52,7 @@
 		b_dept = #{b_dept} + 1
 		where b_num = #{b_num}
 	</update>
-	<update id="seqNotZeroOrigin" parameterType="kr.co.cafe.BoardVo">
+	<update id="seqNotZeroOrigin" parameterType="kr.co.cafe.vo.BoardVo">
 		update board
 		set
 		b_seq = b_seq + 1
@@ -59,7 +60,7 @@
 		and b_seq &gt;= #{b_seq}
 		and b_num != #{b_num}
 	</update>
-	<update id="seqNotZeroNew" parameterType="kr.co.cafe.BoardVo">
+	<update id="seqNotZeroNew" parameterType="kr.co.cafe.vo.BoardVo">
 		update board
 		set
 		b_grp = #{b_grp},
@@ -67,7 +68,7 @@
 		b_seq = #{b_seq}
 		where b_num = #{b_num}
 	</update>
-	<insert id="addCate" parameterType="kr.co.cafe.Board_cateVo">
+	<insert id="addCate" parameterType="kr.co.cafe.vo.Board_cateVo">
 		insert into board_cate (bcate_title)
 		values (#{bcate_title})
 	</insert>
@@ -76,4 +77,16 @@
 		set b_hit = b_hit + 1
 		where b_num = #{param1}
 	</update>
+	<insert id="commentWrite" parameterType="kr.co.cafe.vo.CommentVo">
+		insert into comment (b_num, c_content)
+		values (#{b_num}, #{c_content});
+	</insert>
+	<select id="commentList" resultType="kr.co.cafe.vo.CommentVo" parameterType="int">
+		select * from comment
+		where b_num = #{param1}
+		order by c_num desc
+	</select>
+	<select id="listCount" resultType="int">
+		select count(*) from board
+	</select>
 </mapper>

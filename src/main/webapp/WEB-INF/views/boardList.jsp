@@ -21,7 +21,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="vo" items="${voList}">
+                        <c:forEach var="vo" items="${boardList}">
                           <tr>
                             <td id="td_num">${vo.b_num }</td>
                             <c:if test="${vo.b_dept == 0}"> 
@@ -43,14 +43,38 @@
                         </c:forEach>
                         </tbody>
                       </table>
+                       <div class="col-lg-12" id="box_paging">
+                       		 <c:if test="${pageVo.curRange ne 1}">
+                       		 	<a href="#" onClick="fn_paging(1)">[처음]</a>
+                       		 </c:if>
+                       		 <c:if test="${pageVo.curPage ne 1}">
+                       		 	<a href="#" onClick="fn_paging('${pageVo.prevPage}')">[이전]</a>
+                       		 </c:if>
+                       		 <c:forEach var="pageNum" begin="${pageVo.startPage}" end="${pageVo.endPage }">
+                       		 	<c:choose>
+                       		 		<c:when test="${pageNum eq pageVo.curPage }">
+                       		 			<b><U><a href="#" onClick="fn_paging('${pageNum}')">${pageNum}</a></U></b>
+                       		 		</c:when>
+                       		 		<c:otherwise>
+                       		 			<a href="#" onClick="fn_paging('${pageNum}')">${pageNum}</a>
+                       		 		</c:otherwise>
+                       		 	</c:choose>
+                       		 </c:forEach>
+                       		 <c:if test="${pageVo.curPage ne pageVo.pageCount}">
+                       		 	<a href="#" onClick="fn_paging('${pageVo.nextPage}')">[다음]</a>
+                       		 </c:if>
+                       		 <c:if test="${pageVo.curRange ne pageVo.rangeCount && pageVo.rangeCount > 0}">
+                       		 	<a href="#" onClick="fn_paging('${pageVo.pageCount}')">[끝]</a>
+                       		 </c:if>
+                       </div>
                       <div class="col-lg-10" id="box_btnSearch">
-                      		<select class="form-control" id="boardCate_select" name="bcate_num">
+                      		<!-- <select class="form-control" id="boardCate_select" name="bcate_num">
 								<option value="b_all">전체</option>
 								<option value="b_title">글제목</option>
 								<option value="b_writer">글쓴이</option>
 							</select>
                       		<input type="text" class="form-control" placeholder="Search..." id="input_search">
-                      		<button class="btn btn-default" type="button" id="btn_search">검색 </button>
+                      		<button class="btn btn-default" type="button" id="btn_search">검색 </button> -->
                        </div>
                        <div class="col-lg-2" id="box_btnWrite">
                        		<button class="btn btn-default" type="button" id="btn_write">새글 작성</button>

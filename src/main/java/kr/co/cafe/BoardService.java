@@ -6,15 +6,25 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.cafe.vo.BoardVo;
+import kr.co.cafe.vo.Board_cateVo;
+import kr.co.cafe.vo.CommentVo;
+import kr.co.cafe.vo.PagingVo;
+
 @Service
 public class BoardService {
 	
 	@Autowired
 	private SqlSession sqlsession;
 	
-	public List<BoardVo> boardList() {
+	public int listCount() {
 		BoardDao dao = sqlsession.getMapper(BoardDao.class);
-		return dao.boardList();
+		return dao.listCount();
+	}
+	
+	public List<BoardVo> boardList(int curPage, BoardVo boardVo) {
+		BoardDao dao = sqlsession.getMapper(BoardDao.class);
+		return dao.boardList(boardVo);
 	}
 	
 	public List<Board_cateVo> boardCate(){	
@@ -76,5 +86,24 @@ public class BoardService {
 		}
 		return hitResult;
 	}
+	
+	public String commentWrite(CommentVo comVo) {
+		BoardDao dao = sqlsession.getMapper(BoardDao.class);
+		int result = dao.commentWrite(comVo);
+		String hitResult = "";
+		if(result == 1) {
+			hitResult = "commentWriteSuccess";
+		} else if (result == 0) {
+			hitResult = "commentWriteFail";
+		}
+		return hitResult;
+	}
+	
+	public List<CommentVo> commentList(int b_num) {
+		BoardDao dao = sqlsession.getMapper(BoardDao.class);
+		return dao.commentList(b_num);
+	}
+	
+	
 	
 }

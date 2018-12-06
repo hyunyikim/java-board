@@ -108,9 +108,30 @@
 				});
 			});
 			
-			
-			
+			// 댓글 등록 
+			$('#btn_commentWrite').click(function(){
+				var b_num = $('#b_num').val();
+				var c_content = $('#ta_boardDetail').val();
+				$('#ta_boardDetail').val("");
+				$.ajax({ 
+					url : "commentWrite.do",
+					data : {
+						"b_num" : b_num,
+						"c_content" : c_content 
+					},
+					type : "post",
+					success : function(data){
+						/* <div class="col-lg-12" id="div_comment">너무 좋은 내용 감사합니다 :)<hr></div> */
+						console.log(data);
+					}
+				}); 
+			});
 		});
+		
+		// 페이징 함수 
+		function fn_paging(curPage){
+			location.href = "${pageContext.request.contextPath}/board.do?curPage="+curPage;
+		}
 	</script>
 </body>
 
